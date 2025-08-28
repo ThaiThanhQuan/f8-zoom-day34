@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+    function Count() {
+        const [count, setCount]  = React.useState(0)
+        
+        return (
+            <>
+                <h1 
+                    className = {count > 0 ? 'positive' : count < 0 ? 'negative' : 'zero'}>
+                    {count}
+                </h1>
+                <h4 className = "context">
+                    {count > 0 ? 'Dương' : count < 0 ? 'Âm' : 'Bằng không'}
+                </h4>
+               <div className="container">
+                    <button onClick = {() => ( setCount(count + 1))} className="increase">+</button>
+                    <button onClick = {() => ( setCount(count - 1))} className="decrease">-</button>
+                    </div>
+                    <button onClick = {() => ( setCount(0))} className="reset">Reset</button>
+            </>
+        )
+    }
+
+    const app = (
+            <>
+                <h1 className="title">Counter app</h1>
+                <Count />
+            </>
+    )
+
+    const root = ReactDOM.createRoot(document.querySelector('#root'))
+    root.render(app)
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    padding: 0;
+}
+#root {
+    background-color:#0E1525;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-items: center;       
+    min-height: 100vh;        
+    width: 100%;  
+}
+.title, .context{
+    color: #ffdede;
+}
+.context {
+    font-size: 20px;
+}
+
+.positive, .negative, .zero {
+    font-size: 48px;
+    margin: 0;
+    padding: 16px 32px;
+    border-radius: 24px;
+    background-color: #222C3A;
+}
+.container {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.increase, .decrease {
+    flex: 1;
+    height: 60px;
+    font-size: 32px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+.increase {
+    background-color: #374151;
+}
+
+.decrease{
+   background-color: #4C1C24;
+
+}
+
+.reset {
+    background: #676e78;
+    padding: 14px 28px;
+    border-radius: 12px;
+    color: #242020;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+}
+
+.positive {
+    color: green;    
+
+}
+.negative {
+    color: red;
+}
+
+.zero {
+    color: grey;
+}
+

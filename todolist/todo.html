@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        let uniqId = 0;
+
+        function Todo() {
+            const [inputValue, setInputValue] = React.useState('');
+            const [todos, setTodos] = React.useState([]);
+
+            const handleInputChange = (e) => {
+                setInputValue(e.target.value); 
+            };
+
+            const handleSubmit = (e) => {
+                e.preventDefault(); 
+                if (inputValue.trim()) {
+                    setTodos([...todos, { id: ++uniqId, text: inputValue,
+                        completed: false }]);
+                    setInputValue(''); 
+                }
+            }
+
+            const handleDelete = (id) => {
+               setTodos(todos.filter(todo => todo.id != id))
+            }
+
+            const handleCheck = (id) => {
+                setTodos(
+                    todos.map(todo => 
+                     todo.id === id 
+                     ? {...todo, completed: !todo.completed}
+                      : todo
+                ))
+            }
+
+            return (
+                <div className= "container">
+                    <h1 className = "title">TODO LIST</h1>
+                    <form onSubmit={handleSubmit}>
+                       <div className = "belowtitle">
+                            <input
+                                className= "inputbox"
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                placeholder="Nhập task mới..."
+                            />
+                            <button 
+                                type="submit" 
+                                className= "btn">Thêm
+                            </button>
+                       </div>
+
+                        <ul className= "todolist">
+                        {todos.length > 0  ? (todos.map(todo => (
+                            <li key={todo.id}> 
+                                <span className= {`text ${todo.completed ? 'dash' : ''}`} > 
+                                     {todo.text} 
+                                </span>
+                                <div className= "actions">
+                                    <i className="fa-solid fa-trash btndelete" 
+                                        onClick = {() => handleDelete(todo.id)}>
+                                    </i>
+                                    <input 
+                                        className= "btncheck" 
+                                        type="checkbox" onClick = {() => handleCheck(todo.id)}/>
+                                </div>
+                            </li>)))
+                            : <p className= 'text'>Chưa có task nào. Hãy thêm task đầu tiên!</p>
+                        }  
+                        </ul>
+
+                         <div className="stats">
+                            <h4 className= 'text'>Thống kê </h4>
+                            <span className= 'text'>Tổng: {todos.length}</span>
+                            <span className= 'text'> Hoàn thành: {todos.filter(todo => todo.completed).length} </span>
+                            <span className= 'text'> Còn lại: {todos.filter(todo => !todo.completed).length}</span>
+                        </div>
+                    </form>
+                </div>
+
+            )
+        }
+
+        const app = (
+                <Todo />
+        )
+
+        const root = ReactDOM.createRoot(document.querySelector('#root'))
+        root.render(app)            
+    </script>
+</body>
+
+</html>
